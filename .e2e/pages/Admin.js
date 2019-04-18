@@ -42,19 +42,6 @@ module.exports = {
     },
 
     async removeUserPermissions(user){
-        // let ret = I.sendGetRequest('http://enablers01-test-dan-role-manager-services.enablers01-test.svc.cluster.local/api/user-roles?userId='+user);
-
-        let okta_storage = await I.executeScript(() => localStorage.getItem('okta-token-storage'));
-        let okta_token = JSON.parse(okta_storage).idToken.idToken;
-        console.log(okta_storage);
-        console.log(okta_token);
-        // let headers = { Authorization: 'Bearer' + okta_token };
-
-        // onRequest: async (request) => {
-        //     request.headers = { Authorization: 'Bearer' + okta_token };
-        // }
-
-        // I.config.onRequest = request => request.headers = { Authorization: 'Bearer' + okta_token };
 
         let response = await I.sendGetRequest('http://enablers01-test-dan-role-manager-services.enablers01-test.svc.cluster.local/api/user-roles?userId='+user);
         console.info("response is: "+response);
