@@ -1,0 +1,30 @@
+{
+  "name": "dentsu-bdd-js",
+  "version": "1.0.0",
+  "description": "Repo that contains automated bdd tests for GCR websites ",
+  "main": "codecept.conf.js",
+  "scripts": {
+    "test": "codeceptjs run --features"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitea-tooling.az.devops.gdpdentsu.net/global-client-reporting/dentsu-bdd-js.git"
+  },
+  "dependencies": {
+    "codeceptjs": "^2.0.8"
+  },
+  "keywords": [
+    "codecept",
+    "bdd",
+    "test",
+    "e2e"
+  ],
+  "author": "Satish Sabapathi",
+  "license": "ISC",
+  "devDependencies": {
+    "allure": "0.0.0",
+    "cucumber": "^5.1.0",
+    "faker": "^4.1.0",
+    "rosie": "^2.0.1"
+  }
+}

@@ -1,2 +1,2 @@
-# dentsu-enablers-bdd
+# dentsu-bdd-js
 
