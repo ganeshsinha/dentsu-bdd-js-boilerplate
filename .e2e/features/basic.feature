@@ -9,5 +9,5 @@ Feature: User management
 
 
   Scenario: Add a user to one or more roles
-    # When I add user "Tvstack.user2" to "Policy Manager" role
-    # Then the user is added to the role successfully
+     When I add user "Tvstack.user2" to "Policy Manager" role
+     Then the user is added to the role successfully

@@ -9,7 +9,8 @@ exports.config = {
       url: HOST_URL,
       waitForNavigation: "networkidle0",
       waitForTimeout: 20000,
-      show: true
+      show: true,
+      windowSize: '--start-fullscreen'
     },
     REST: {
         endpoint: REST_API_ENDPOINT,

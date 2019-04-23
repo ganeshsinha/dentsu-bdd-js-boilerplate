@@ -1,7 +1,9 @@
 const I = actor();
 const oktaPage = require('./Okta');
-const faker = require('faker');
-var assert = require('assert');
+let faker = require('faker');
+var expect = require('chai').expect;
+
+var id;
 
 module.exports = {
 
@@ -15,7 +17,7 @@ module.exports = {
         addRoleButton: "//span[text()='Add Role']"
     },
 
-    login(){
+    login() {
         I.amOnPage('');
         I.see('Sign In')
         oktaPage.login('global.admin1@dentsuaegis.com', 'passwd');
@@ -23,7 +25,7 @@ module.exports = {
         I.seeElement(this.fields.addUserButton);
     },
 
-    addUser(user, role){
+    addUser(user, role) {
         I.click(this.fields.addUserButton);
         I.waitForText('Add User To Role')
         I.fillField(this.fields.searchByUser, user)
@@ -33,35 +35,37 @@ module.exports = {
         I.click(this.fields.rolesDropDown)
         I.waitForEnabled(this.fields.selectRole)
         I.click(this.fields.selectRole)
-        // I.fillField(this.fields.targetId, '17682')
-        I.fillField(this.fields.targetId, faker.random.number)
+        id = faker.random.alphaNumeric(4);
+        I.fillField(this.fields.targetId, id)
         I.waitForEnabled(this.fields.addRoleButton)
         I.click(this.fields.addRoleButton)
-        I.see('Added')
+
 
     },
 
-    async removeUserPermissions(user){
+    checkIfUserAdded() {
+        I.refreshPage();
+        I.waitForText('Policy Manager(' + id + ')');
+    },
 
-        let response = await I.sendGetRequest('http://enablers01-test-dan-role-manager-services.enablers01-test.svc.cluster.local/api/user-roles?userId='+user);
-        console.info("response is: "+response);
+    async removeUserPermissions(user) {
 
-        // this.helpers['REST']._executeRequest({
-        //     'http://tvstack01-dev-dan-role-manager-services.tvstack01-dev.svc.cluster.local/api/user-roles?userId=Tvstack.user1@dentsuaegis.com',
-        //     headers,
-        // });
+        let response = await I.sendGetRequest('/api/user-roles?userId=' + user);
+        expect(response.status).to.be.equal(200);
 
+        if (response.data.data.length >= 1) {
 
+            for (let i = 0; i < response.data.data.length; i++) {
 
-        // console.info("response is: "+response.code);
-        // assert.equal(ret.code, '200')
-                // let userRolesResponse = I.sendGetRequest('http://enablers01-test-dan-role-manager-services.enablers01-test.svc.cluster.local/api/user-roles?userId='+user);
-        // if (userRolesResponse.length > 1){
-        //     userRolesResponse.forEach(element => {
-        //         I.sendDeleteRequest('/api/user-roles/'+element.id)
-        //     });
+                let del_response = await I.sendDeleteRequest('/api/user-roles/' + response.data.data[i].id)
+                expect(del_response.status).to.be.equal(200);
+            }
+
         }
+
+    }
 
 };
 
-Object.setPrototypeOf(module.exports, class Admin {}.prototype);
+Object.setPrototypeOf(module.exports, class Admin {
+}.prototype);
