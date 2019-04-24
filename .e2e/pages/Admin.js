@@ -2,6 +2,8 @@ const I = actor();
 const oktaPage = require('./Okta');
 let faker = require('faker');
 var expect = require('chai').expect;
+//ensure you set OKTA_PASS environment variable with password on your local machine
+var oktapass   = process.env.OKTA_PASS;
 
 var id;
 
@@ -20,7 +22,7 @@ module.exports = {
     login() {
         I.amOnPage('');
         I.see('Sign In')
-        oktaPage.login('global.admin1@dentsuaegis.com', 'passwd');
+        oktaPage.login('global.admin1@dentsuaegis.com', oktapass);
         I.waitForText('Identity & Access');
         I.seeElement(this.fields.addUserButton);
     },
@@ -66,6 +68,3 @@ module.exports = {
     }
 
 };
-
-Object.setPrototypeOf(module.exports, class Admin {
-}.prototype);

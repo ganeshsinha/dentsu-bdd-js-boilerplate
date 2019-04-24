@@ -13,4 +13,3 @@ module.exports = {
     I.click(this.okta_login_button)
   }
 };
-Object.setPrototypeOf(module.exports, class Okta {}.prototype);

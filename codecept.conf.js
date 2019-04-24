@@ -10,7 +10,7 @@ exports.config = {
       waitForNavigation: "networkidle0",
       waitForTimeout: 20000,
       show: true,
-      windowSize: '--start-fullscreen'
+      windowSize: '640x480'
     },
     REST: {
         endpoint: REST_API_ENDPOINT,
@@ -24,6 +24,10 @@ exports.config = {
         }
     },
 
+  },
+  include: {
+    Admin:'./.e2e/pages/Admin.js',
+    Okta:'./.e2e/pages/Okta.js',
   },
   mocha: {},
   bootstrap: null,
