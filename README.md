@@ -6,3 +6,7 @@ npm install
 ###To run the tests
 
 npm test
+
+###To generate the test report
+
+npm run report

@@ -4,7 +4,8 @@
   "description": "Repo that contains automated bdd tests for GCR websites ",
   "main": "codecept.conf.js",
   "scripts": {
-    "test": "codeceptjs run --features"
+    "test": "codeceptjs run --plugins allure",
+    "report": "allure serve ./.e2e/output"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,11 @@
   "author": "Satish Sabapathi",
   "license": "ISC",
   "devDependencies": {
-    "allure": "0.0.0",
+    "allure-commandline": "^2.9.0",
+    "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "faker": "^4.1.0",
     "puppeteer": "^1.14.0",
-    "rosie": "^2.0.1",
-    "chai": "^4.2.0"
+    "rosie": "^2.0.1"
   }
 }
