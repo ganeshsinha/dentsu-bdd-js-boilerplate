@@ -2,7 +2,7 @@ const HOST_URL = process.env.HOST_URL || 'http://enablers01-test-dan-user-manage
 const REST_API_ENDPOINT = process.env.REST_API_ENDPOINT || 'http://enablers01-test-dan-role-manager-services.enablers01-test.svc.cluster.local';
 
 exports.config = {
-  output: './.e2e/output',
+  output: './output',
   helpers: {
 
     Puppeteer: {
@@ -26,16 +26,16 @@ exports.config = {
 
   },
   include: {
-    Admin:'./.e2e/pages/Admin.js',
-    Okta:'./.e2e/pages/Okta.js',
+    Admin:'./pages/Admin.js',
+    Okta:'./pages/Okta.js',
   },
   mocha: {},
   bootstrap: null,
   teardown: null,
   hooks: [],
   gherkin: {
-    features: './.e2e/features/*.feature',
-    steps: ['./.e2e/step_definitions/steps.js']
+    features: './features/*.feature',
+    steps: ['./step_definitions/steps.js']
   },
   plugins: {
     screenshotOnFail: {

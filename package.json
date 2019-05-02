@@ -5,7 +5,7 @@
   "main": "codecept.conf.js",
   "scripts": {
     "test": "codeceptjs run --plugins allure",
-    "report": "allure serve ./.e2e/output"
+    "report": "allure serve ./output"
   },
   "repository": {
     "type": "git",
