@@ -9,7 +9,7 @@ exports.config = {
       url: HOST_URL,
       waitForNavigation: "networkidle0",
       waitForTimeout: 20000,
-      show: true,
+      show: false,
       windowSize: '640x480'
     },
     REST: {
