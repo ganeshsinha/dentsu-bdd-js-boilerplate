@@ -12,12 +12,13 @@
     "url": "https://gitea-tooling.az.devops.gdpdentsu.net/global-client-reporting/dentsu-bdd-js.git"
   },
   "dependencies": {
-    "codeceptjs": "^2.0.8",
     "allure-commandline": "^2.9.0",
     "chai": "^4.2.0",
+    "codeceptjs": "^2.0.8",
     "cucumber": "^5.1.0",
     "faker": "^4.1.0",
     "puppeteer": "^1.14.0",
+    "randomstring": "^1.1.5",
     "rosie": "^2.0.1"
   },
   "keywords": [
