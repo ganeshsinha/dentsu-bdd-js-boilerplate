@@ -1,33 +1,25 @@
 {
-  "name": "dentsu-bdd-js",
+  "name": "codeceptjs-skeleton",
   "version": "1.0.0",
-  "description": "Repo that contains automated bdd tests for GCR websites ",
-  "main": "codecept.conf.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "codeceptjs run --plugins allure",
-    "report": "allure serve ./output"
+    "test:e2e": "npx codeceptjs run --plugins allure --config=./codecept-tests/codecept.conf.js",
+    "test:report": "allure serve ./codecept-tests/output",
+    "test:report-gen": "allure generate ./codecept-tests/output"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://gitea-tooling.az.devops.gdpdentsu.net/global-client-reporting/dentsu-bdd-js.git"
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/selenium-standalone-service": "^5.12.1",
+    "codeceptjs": "^2.3.0",
+    "cucumber": "^6.0.2",
+    "import-export": "^1.0.1",
+    "webdriverio": "^5.12.5"
   },
   "dependencies": {
-    "allure-commandline": "^2.9.0",
-    "chai": "^4.2.0",
-    "codeceptjs": "^2.0.8",
-    "cucumber": "^5.1.0",
-    "faker": "^4.1.0",
-    "puppeteer": "^1.14.0",
-    "randomstring": "^1.1.5",
-    "rosie": "^2.0.1"
-  },
-  "keywords": [
-    "codecept",
-    "bdd",
-    "test",
-    "e2e"
-  ],
-  "author": "Satish Sabapathi",
-  "license": "ISC",
-  "devDependencies": {}
+    "exceljs": "^3.1.0",
+    "mongoose": "^5.7.3",
+    "puppeteer": "^1.20.0"
+  }
 }
