@@ -1,6 +1,7 @@
 const I = actor();
 const months = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
+let genericFunction=require('../factories/genericFuctions');
 
 module.exports = {
     // from component library
@@ -14,18 +15,18 @@ module.exports = {
         let EndDateYear = new Date(EndDate).getFullYear();
         let EndDateMonth = new Date(EndDate).getMonth();
         let EndDatePicked = new Date(EndDate).getDate();
-        this.waitAndClick(locator, 20);
-        this.waitAndClick("(//option[text()='" + currentYear + "']/..)[1]", 20);
-        this.waitAndClick("(//option[text()='" + startDateYear + "'])[1]", 20);
-        this.waitAndClick("(//option[text()='" + months[currentMonth] + "']/..)[1]", 20);
-        this.waitAndClick("(//option[text()='" + months[startDateMonth] + "'])[1]", 20);
-        this.waitAndClick("(//div[text()='" + startDatePicked + "'])[1]", 20);
+        genericFunction.waitAndClick(locator, 20);
+        genericFunction.waitAndClick("(//option[text()='" + currentYear + "']/..)[1]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + startDateYear + "'])[1]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + months[currentMonth] + "']/..)[1]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + months[startDateMonth] + "'])[1]", 20);
+        genericFunction.waitAndClick("(//div[text()='" + startDatePicked + "'][@disable='false'])[1]", 20);
 
-        this.waitAndClick("(//option[text()='" + currentYear + "']/..)[2]", 20);
-        this.waitAndClick("(//option[text()='" + EndDateYear + "'])[2]", 20);
-        this.waitAndClick("(//option[text()='" + months[startDateMonth + 1] + "']/..)[2]", 20);
-        this.waitAndClick("(//option[text()='" + months[EndDateMonth] + "'])[2]", 20);
-        this.waitAndClick("(//div[text()='" + EndDatePicked + "'])[2]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + currentYear + "']/..)[2]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + EndDateYear + "'])[2]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + months[startDateMonth + 1] + "']/..)[2]", 20);
+        genericFunction.waitAndClick("(//option[text()='" + months[EndDateMonth] + "'])[2]", 20);
+        genericFunction.waitAndClick("(//div[text()='" + EndDatePicked + "'][@disable='false'])[2]", 20);
     },
 
     datePickerInput(date, locator) {
@@ -34,12 +35,12 @@ module.exports = {
         let month = new Date(date).getMonth();
         let currentMonth = new Date().getMonth();
         let datePick = new Date(date).getDate();
-        this.waitAndClick(locator, 20);
-        this.waitAndClick("(//option[text()='" + currentYear + "']/..)[1]", 20);
-        this.waitAndClick("//option[text()='" + year + "']", 20);
-        this.waitAndClick("//option[text()='" + months[currentMonth] + "']/..", 20);
-        this.waitAndClick("//option[text()='" + months[month] + "']", 20);
-        this.waitAndClick("(//div[text()='" + datePick + "'])[1]", 20);
+        genericFunction.waitAndClick(locator, 20);
+        genericFunction.waitAndClick("(//option[text()='" + currentYear + "']/..)[1]", 20);
+        genericFunction.waitAndClick("//option[text()='" + year + "']", 20);
+        genericFunction.waitAndClick("//option[text()='" + months[currentMonth] + "']/..", 20);
+        genericFunction.waitAndClick("//option[text()='" + months[month] + "']", 20);
+        genericFunction.waitAndClick("(//div[text()='" + datePick + "'])[1]", 20);
     },
 
     //from taxonomy app
@@ -50,26 +51,26 @@ module.exports = {
             let month = new Date(date).getMonth();
             let currentMonth = new Date().getMonth();
             let datePick = new Date(date).getDate();
-            this.waitAndClick("//div/label/../div[1]/input[@placeholder='MM/DD/YYYY']", 20);
-            this.waitAndClick("//h6[text()='" + currentYear + "']", 5);
+            genericFunction.waitAndClick("//div/label/../div[1]/input[@placeholder='MM/DD/YYYY']", 20);
+            genericFunction.waitAndClick("//h6[text()='" + currentYear + "']", 5);
             I.waitForVisible("//div[text()='" + currentYear + "']", 5);
             I.click("//div[text()='" + year + "']");
             let numberOfClick = currentMonth - month;
             for (let i = 0; i < Math.abs(numberOfClick); i++) {
                 if (numberOfClick < 0) {
-                    this.waitAndClick("//p[contains(text(),'" + year + "')]/../..//button[2]", 20);
+                    genericFunction.waitAndClick("//p[contains(text(),'" + year + "')]/../..//button[2]", 20);
                 }
                 if (numberOfClick > 0) {
-                    this.waitAndClick("//p[contains(text(),'" + year + "')]/../..//button[1]", 20);
+                    genericFunction.waitAndClick("//p[contains(text(),'" + year + "')]/../..//button[1]", 20);
                 }
             }
-            this.waitAndClick("//button[@tabindex='0']//span[text()='" + datePick + "']/..", 20);
-            this.waitAndClick("//span[text()='OK']", 20);
+            genericFunction.waitAndClick("//button[@tabindex='0']//span[text()='" + datePick + "']/..", 20);
+            genericFunction.waitAndClick("//span[text()='OK']", 20);
         }
     },
 
     resetDatePicker() {
-        this.waitAndClick("//input[@placeholder='MM/DD/YYYY']", 20);
-        this.waitAndClick("//span[text()='Clear']", 20);
+        genericFunction.waitAndClick("//input[@placeholder='MM/DD/YYYY']", 20);
+        genericFunction.waitAndClick("//span[text()='Clear']", 20);
     },
 };
