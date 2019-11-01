@@ -1,12 +1,9 @@
-/*Using this feature you can login to your app(by okta login) by automatically and also this feature store your sessionID
-,URL and UserName, you just have to pass URL and credential of user */
 import fs from 'fs';
 import {RETRY} from './retryStatments';
 
 const path = require('path');
-const oktaPass = process.env.OKTA_PASS;
-const strings = require('./strings');
-let oktaFile;
+let oktapass = process.env.OKTA_PASS;
+
 const oktaSelectors = {
     login: 'input[name="username"]',
     home: 'input[name="app-link"]',
@@ -20,13 +17,19 @@ const oktaSelectors = {
 
 const appSelectors = {
     login: '#okta-signin-username',
-    home: '',
+    home: 'Taxonomy Manager',
     storage: 'okta-token-storage',
 };
 
-const getLogin = ({role, user, password, okta = oktaSelectors, app = appSelectors}) => {
-    oktaFile = path.join(__dirname, `../output/${role}_okta.json`);
-    // strings.userRolePath.loginUser = oktaFile;
+const getLogin = ({
+                      role,
+                      user,
+                      password,
+                      okta = oktaSelectors,
+                      app = appSelectors
+                  }) => {
+    const oktaFile = path.join(__dirname, `../output/${role}_okta.json`);
+
     return {
         login: async (I) => {
             I.say("LOGIN");
@@ -40,8 +43,7 @@ const getLogin = ({role, user, password, okta = oktaSelectors, app = appSelector
             I.retry(RETRY).waitForVisible(okta.home);
             const cookie = await I.grabCookie(okta.storage);
             fs.writeFileSync(oktaFile, JSON.stringify({url, [okta.storage]: cookie && cookie.value}));
-            //url of the app
-            I.amOnPage("https://www.google.com/");
+            I.amOnPage("/");
             // I.retry(RETRY).waitForText(app.home);
         },
 
@@ -60,34 +62,31 @@ const getLogin = ({role, user, password, okta = oktaSelectors, app = appSelector
         restore: (I, session) => {
             I.say("RESTORE");
             const data = fs.readFileSync(oktaFile, 'utf8');
-            if (!data) {
-                return;
-            }
+            if (!data) { return; }
             const cred = JSON.parse(data);
-            if (!("sid" in cred) || !("url" in cred)) {
-                this.login()
-            }
-
-            // Restoring OKTA cookie
+            if (!("sid" in cred) || !("url" in cred)) { this.login }
             I.retry(RETRY).waitForVisible(okta.login);
             I.setCookie({name: okta.storage, value: cred.sid});
-
-            // Restoring APP cookie
-            I.amOnPage('https://www.google.com/');
-            I.executeScript((session, storage) => {
-                return localStorage.setItem(storage, session)
-            }, session, app.storage);
+            I.amOnPage('/');
+            I.executeScript((session, storage) => { return localStorage.setItem(storage, session) }, session, app.storage);
         },
     }
 };
 
-let autoLogin;
+
 export default autoLogin = {
     enabled: true,
     saveToFile: true,
-    //User credentials
     users: {
-        admin: getLogin({role: 'admin', user: '', password: oktaPass}),
-        admin2: getLogin({role: 'admin2', user: '', password: oktaPass}),
+        admin: getLogin({
+            role: 'admin',
+            user: 'global.admin1@dentsuaegis.com',
+            password: oktapass
+        }),
+        admin2: getLogin({
+            role: 'admin2',
+            user: 'global.admin2@dentsuaegis.com',
+            password: oktapass
+        }),
     }
 };
