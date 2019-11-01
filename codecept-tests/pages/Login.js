@@ -6,8 +6,9 @@ module.exports = {
         I.amOnPage('');
     },
 
-    enterText() {
+    async enterText() {
         I.fillField('//input[contains(@type,\'text\')]', 'testcomplete web orders');
+        let a = await I.isVisible('//input[contains(@type,\'text\')]', 'testcomplete web orders', 20);
         I.pressKey('Enter');
     },
 

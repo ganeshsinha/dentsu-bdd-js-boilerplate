@@ -4,6 +4,7 @@ const REST_API_ENDPOINT =  envURL[envURL.env].api.REST_API_ENDPOINT;
 const autoLogin = require('./factories/autoLogin');
 const {include, gherkin} = require('./config/include');
 const WebDriver = require('./config/webDriverConfig');
+const Puppeteer = require('./config/puppeteer');
 const browser = ["chrome", "chrome", "chrome", "chrome"];
 
 exports.config = {

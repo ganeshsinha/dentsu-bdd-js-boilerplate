@@ -17,7 +17,7 @@ module.exports = {
         });
     },
 
-    rmdir(dir) {
+    removeDirectory(dir) {
         let list = fs.readdirSync(dir);
         for (let i = 0; i < list.length; i++) {
             let filename = path.join(dir, list[i]);
@@ -72,6 +72,19 @@ module.exports = {
     async waitAndGetTextFromLocator(locator, sec) {
         I.waitForVisible(locator, sec);
         return await I.grabTextFrom(locator);
-    }
+    },
+
+    async signIntoApplication(url,user,password) {
+        I.amOnPage(url);
+        I.waitForVisible("input[name='username']", 120);
+        I.fillField("input[name='username']", user);
+        I.click("#okta-signin-submit");
+        I.waitForVisible("//input[@name='password']", 60);
+        I.click("//input[@name='password']");
+        I.fillField("//input[@name=,password,]", password);
+        I.click("//input[@value='Verify']");
+        I.waitForVisible("input[name='app-link']", 180);
+        return  "Bearer " + await codeceptjs.container.helpers('WebDriver').executeScript(() => localStorage.token);
+    },
 
 };

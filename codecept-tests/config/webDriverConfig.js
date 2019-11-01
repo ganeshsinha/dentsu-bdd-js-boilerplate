@@ -12,7 +12,7 @@ const WebDriver = {
     waitForAction: 200,
     "desiredCapabilities": {
         "chromeOptions": {
-            // "args": ["--headless", "--disable-gpu", "--window-size=1325x744", "--no-sandbox", "--disable-dev-shm-usage"],
+            //"args": ["--headless", "--disable-gpu", "--window-size=1325x744", "--no-sandbox", "--disable-dev-shm-usage"],
             "useAutomationExtension": false,
             //This preference is use to set default download path for our scenarios and the path is ../output/Download
             "prefs": {
