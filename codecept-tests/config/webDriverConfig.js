@@ -3,22 +3,23 @@ const HOST_URL = envURL[envURL.env].web.HOST_URL;
 const path = require('path');
 const downloadDir = path.join(__dirname, '../output/Download');
 
-const WebDriver = {
+const WebDriver= {
     url: HOST_URL,
+    browser: 'chrome',
     restart: false,
     keepCookies: true,
     windowSize: "maximize",
     waitForAction: 200,
-    browser: 'chrome',
     "desiredCapabilities": {
         "chromeOptions": {
-         "args": ["--disable-gpu-headless", "--disable-gpu", "--window-size=1325x744", "--no-sandbox", "--disable-dev-shm-usage"],
-            //This preference is use to set default download path for our scenarios and the path is ../output/Download
+            "args": ["--headless", "--disable-gpu", "--window-size=1325x744", "--no-sandbox", "--disable-dev-shm-usage"],
+            "useAutomationExtension": false ,
             "prefs": {
-                'download.default_directory': downloadDir,
+                'download.default_directory' : downloadDir,
             },
         },
     },
+
 
     /*browser: 'firefox',
     'moz:firefoxOptions': {
