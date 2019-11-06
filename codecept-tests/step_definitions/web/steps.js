@@ -1,6 +1,7 @@
 const { I } = inject();
 const loginPage = require('../../pages/Login');
 
+//Use step file just to call page function do not create any logic in that.
     Given(/^User is on landing page$/, () => {
         loginPage.navigateToUrl();
         loginPage.enterText();
