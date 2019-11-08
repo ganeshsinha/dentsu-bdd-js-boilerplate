@@ -12,15 +12,15 @@
   "license": "ISC",
   "devDependencies": {
     "@wdio/selenium-standalone-service": "^5.12.1",
+    "allure-commandline": "^2.9.0",
     "codeceptjs": "^2.3.0",
-    "cucumber": "^6.0.2",
+    "cucumber": "^6.0.3",
     "import-export": "^1.0.1",
-    "webdriverio": "^5.12.5",
-    "allure-commandline": "^2.9.0"
+    "webdriverio": "^5.12.5"
   },
   "dependencies": {
+    "allure-commandline": "^2.9.0",
     "exceljs": "^3.1.0",
-    "mongoose": "^5.7.3",
-    "allure-commandline": "^2.9.0"
+    "mongoose": "^5.7.3"
   }
 }

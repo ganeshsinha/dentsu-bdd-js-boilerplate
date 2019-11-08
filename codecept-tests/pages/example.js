@@ -5,6 +5,8 @@ module.exports = {
     //you can use this as this.fields.staticLocator
     fields: {
         staticLocator: "//input[@placeholder='Convention Name']",
+        email:"//input",
+        //this.fields.email
     },
 
     //dynamic locator example
@@ -21,6 +23,8 @@ module.exports = {
         //Do not use await in every statment
         //do not create global variable in every js file, use models
         // Use dynamic wait insted of hard wait
-        I.amOnPage("/")
+        I.amOnPage("/");
+        I.waitForVisible(this.fields.email,20);
+
     },
 };

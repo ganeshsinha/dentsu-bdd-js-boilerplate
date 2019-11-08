@@ -3,8 +3,8 @@ this envConfig file is use to manage all the URLS of your app you can use multip
 I.amOnPage(envURL[envURL.env].web.HOST_URL+"/dashboard") or I.amOnPage(envURL[envURL.env].web["HOST_URL"]+"/dashboard")
 and also you can use this in API like this:- I.sendGetRequest(envURL[envURL.env].api.REST_API_ENDPOINT+`/api/...`)
 or I.sendGetRequest(envURL[envURL.env].api["REST_API_ENDPOINT12"]+`/api/...`)
-"process.envConfig.e2e_env" is for set envType from node script like "(SET e2e_env=test) && codeceptjs run --grep "" "
-"process.envConfig.e2e_APPENV" is use for set envType from your system variable or test is by default. */
+"process.envConfig.AppEnv" is for set envType from node script like "(SET AppEnv=test) && codeceptjs run --grep "" "
+"process.envConfig.AppEnv" is use for set envType from your system variable or test is by default. */
 
 const envConfig = {
     "env": process.env.AppEnv ||"test",
@@ -22,7 +22,7 @@ const envConfig = {
     },
     "dev": {
         "web": {
-            "HOST_URL": "https://www.google.com/",
+            "HOST_URL": "https://www.irctc.co.in/nget/train-search",
             "strapiURL": '',
         },
         "api": {

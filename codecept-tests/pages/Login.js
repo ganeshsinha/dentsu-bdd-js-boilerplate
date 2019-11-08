@@ -1,4 +1,4 @@
-const {I} = inject();
+const I = actor();
 
 module.exports = {
 
@@ -13,7 +13,7 @@ module.exports = {
     },
 
     clickOnfirstLink() {
-        I.waitForVisible('//h3[@class=\'LC20lb\'][contains(.,\'Web Orders Basic Sample | TestLeft Documentation\')]', 20);
+        I.waitForVisible("//h3[@class='LC20lb'][contains(.,'Web Orders Basic Sample | TestLeft Documentation')]",20);
         I.click('//h3[@class=\'LC20lb\'][contains(.,\'Web Orders Basic Sample | TestLeft Documentation\')]');
     },
 
