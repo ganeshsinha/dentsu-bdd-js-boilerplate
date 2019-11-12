@@ -8,7 +8,6 @@ module.exports = {
 
     async enterText() {
         I.fillField('//input[contains(@type,\'text\')]', 'testcomplete web orders');
-        let a = await I.isVisible('//input[contains(@type,\'text\')]', 'testcomplete web orders', 20);
         I.pressKey('Enter');
     },
 
@@ -24,7 +23,7 @@ module.exports = {
 
 
     async switchNextWindow() {
-        I.wait(10);
+        I.wait(5);
         I.switchToNextTab();
     },
 

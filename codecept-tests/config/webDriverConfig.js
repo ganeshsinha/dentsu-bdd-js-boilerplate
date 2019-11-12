@@ -13,7 +13,7 @@ const WebDriver= {
     "desiredCapabilities": {
         "chromeOptions": {
             "args": ["--headless", "--disable-gpu", "--window-size=1325x744", "--no-sandbox", "--disable-dev-shm-usage"],
-            "useAutomationExtension": false ,
+            "useAutomationExtension": true ,
             "prefs": {
                 'download.default_directory' : downloadDir,
             },

@@ -74,17 +74,12 @@ module.exports = {
         return await I.grabTextFrom(locator);
     },
 
-    async signIntoApplication(url,user,password) {
-        I.amOnPage(url);
-        I.waitForVisible("input[name='username']", 120);
-        I.fillField("input[name='username']", user);
-        I.click("#okta-signin-submit");
-        I.waitForVisible("//input[@name='password']", 60);
-        I.click("//input[@name='password']");
-        I.fillField("//input[@name=,password,]", password);
-        I.click("//input[@value='Verify']");
-        I.waitForVisible("input[name='app-link']", 180);
-        return  "Bearer " + await codeceptjs.container.helpers('WebDriver').executeScript(() => localStorage.token);
+    getOktaToken(){
+        const sessionFile = path.join(__dirname, `../output/admin_session.json`);
+        const data = fs.readFileSync(sessionFile, 'utf8');
+        if (!data) { return; }
+        const cred = JSON.parse(data);
+        return cred.idToken.idToken;
     },
 
 };

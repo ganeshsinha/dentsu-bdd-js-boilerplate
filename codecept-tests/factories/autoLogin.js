@@ -53,27 +53,34 @@ const getLogin = ({
             // I.retry(RETRY).waitForText(app.home);
         },
 
-        fetch: (I) => {
+        fetch: async (I) => {
             I.say("FETCH");
             I.amOnPage('/');
-            return I.executeScript((storage) => localStorage.getItem(storage), app.storage);
+            let token = await I.executeScript((storage) => localStorage.getItem(storage), app.storage);
+            return JSON.parse(token);
         },
 
         restore: (I, session) => {
             I.say("RESTORE");
             const data = fs.readFileSync(oktaFile, 'utf8');
-            if (!data) { return; }
+            if (!data) {
+                return;
+            }
             const cred = JSON.parse(data);
-            if (!("sid" in cred) || !("url" in cred)) { this.login }
+            if (!("sid" in cred) || !("url" in cred)) {
+                this.login
+            }
             I.retry(RETRY).waitForVisible(okta.login);
             I.setCookie({name: okta.storage, value: cred.sid});
             I.amOnPage('/');
-            I.executeScript((session, storage) => { return localStorage.setItem(storage, session) }, session, app.storage);
+            I.executeScript((session, storage) => {
+                return localStorage.setItem(storage, session)
+            }, session, app.storage);
         },
     }
 };
 
-
+let autoLogin;
 export default autoLogin = {
     enabled: true,
     saveToFile: true,
