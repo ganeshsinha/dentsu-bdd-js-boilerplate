@@ -1,14 +1,16 @@
 //In this file you have to add path of all the page file over here.
 const include = {
-    I: "./steps_file.js",
-    loginPage: "./pages/Login.js",
+    I: "./src/steps_file.js",
+    loginPage: "./src/pages/Login.js",
 };
 
 const gherkin = {
-    features: "./features/*/*/*.feature",
+    features: "./src/features/*/*/*.feature",
+
     steps: [
-        "./step_definitions/web/steps.js",
-        "./step_definitions/api/apiSteps.js",
+        "./src/step_definitions/web/steps.js",
+        "./src/step_definitions/api/apiSteps.js",
+        "./src/step_definitions/web/login_step.js",
     ]
 };
 

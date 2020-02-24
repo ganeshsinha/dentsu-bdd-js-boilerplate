@@ -1,10 +1,6 @@
 require('import-export');
-const envURL = require('./config/envConfig');
-const REST_API_ENDPOINT =  envURL[envURL.env].api.REST_API_ENDPOINT;
-const autoLogin = require('./factories/autoLogin');
 const {include, gherkin} = require('./config/include');
-const WebDriver = require('./config/webDriverConfig');
-const Puppeteer = require('./config/puppeteer');
+const {WebDriver, REST, GraphQL} = require('./config/helpers');
 const browser = ["chrome", "chrome", "chrome", "chrome"];
 
 exports.config = {
@@ -18,20 +14,16 @@ exports.config = {
     },
 
     helpers: {
-        WebDriver,
-        REST: {
-            endpoint: REST_API_ENDPOINT,
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
-        },
+        WebDriver, REST, GraphQL,
         customHelper: {require: './factories/MyHelper.js'}
     },
+
     include,
     gherkin,
     plugins: {
         screenshotOnFail: {enabled: true},
         wdio: {enabled: true, services: ['selenium-standalone']},
         allure: {enabled: true},
-        autoLogin,
     },
     name: 'Codeceptjs-Skeleton'
 };

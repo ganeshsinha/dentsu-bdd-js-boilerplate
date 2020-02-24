@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+
 module.exports = {
     async connectWithMongoDB(mongoUrl) {
         try {
@@ -32,7 +33,9 @@ module.exports = {
                     return reject(err);
                 }
                 resolve();
-            }).then(()=>{console.log("connected with db")});
+            }).then(() => {
+                console.log("connected with db")
+            });
 
             mongoose.connection.on('error', (err) => {
                 throw new Error(`unable to connect to database: ${mongoUri}`);
@@ -42,6 +45,8 @@ module.exports = {
     },
 
     close() {
-        mongoose.disconnect().then(()=>{console.log("disconnected")});
+        mongoose.disconnect().then(() => {
+            console.log("disconnected")
+        });
     }
 };

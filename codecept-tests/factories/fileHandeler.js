@@ -1,6 +1,7 @@
 const Excel = require('exceljs');
 
 module.exports = {
+
     async transformExcelTableWithRow(fileName, firstRow, lastRow, sheetNameOrNumber) {
         let rows = await this.readDownloadedXLSXFile(fileName, sheetNameOrNumber).then();
         rows.slice(1, firstRow - 1);

@@ -1,6 +1,8 @@
 const path = require("path");
 import fs from 'fs';
 const I = actor();
+const tokenID = path.join(__dirname, `../output/admin_session.json`);
+
 module.exports = {
 
     transformTable(table) {
@@ -74,12 +76,31 @@ module.exports = {
         return await I.grabTextFrom(locator);
     },
 
-    getOktaToken(){
+    async getOktaToken() {
+        let token = await I.executeScript(
+            (storage) => localStorage.getItem(storage), 'okta-token-storage'
+        );
+        fs.writeFileSync(tokenID, JSON.stringify(token));
         const sessionFile = path.join(__dirname, `../output/admin_session.json`);
         const data = fs.readFileSync(sessionFile, 'utf8');
         if (!data) { return; }
-        const cred = JSON.parse(data);
-        return cred.idToken.idToken;
+        const cred = JSON.parse(JSON.parse(data));
+        return "Bearer " + cred.idToken.idToken;
+    },
+
+    async getCMSContentFromGraphQL(collectionName, language) {
+        let token = await this.getOktaToken();
+        let cmsContent = await I.sendQuery(
+            `query{
+                getContent(
+                    input:{
+                        collectionName :"${collectionName}",
+                        language: "${language}" 
+                    }
+                )
+                 { result }
+            }`, {}, {}, {"Authorization": token} );
+        return cmsContent.data.data.getContent.result;
     },
 
 };
