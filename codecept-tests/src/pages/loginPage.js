@@ -4,7 +4,6 @@ const envURL = require('../../config/envConfig');
 let {market, client} = envURL[envURL.env];
 const genericMethod = require('../../factories/genericFuctions');
 const CmsContext = require('../../factories/CMSContent');
-
 const url = require('url');
 const querystring = require('querystring');
 
@@ -13,9 +12,9 @@ module.exports = {
     fields: {
         profileIcon: '//*[@id="root"]/div/div/div/header/div/div/button',
         email: '#okta-signin-username',
-        password: '//input[@name=\'password\']',
+        password: '//input[@name="password"]',
         nextButton: "//input[@value='Next']",
-        verifyButton: '//input[@value=\'Verify\']',
+        verifyButton: '//input[@value="Verify"]',
         oktaGlobal: '//a/span[text()="global"]',
         oktaSignOut: '//a/p[text()="Sign out"]',
         logoutButton: "//li[text()='Logout']",
@@ -36,14 +35,14 @@ module.exports = {
         I.fillField(this.fields.email, user);
     },
 
-    async changeLanguage(language) {
-        I.waitForVisible(this.landingPage.languageSelector, 20);
-        I.click(this.landingPage.languageSelector);
-        I.waitForVisible(this.landingPage.languageOption(language), 20);
-        I.click(this.landingPage.languageOption(language));
-        CmsContext.language = language;
-        await this.getCMSContentThroughLanguage('datamappings', CmsContext.language);
-    },
+    // async changeLanguage(language) {
+    //     I.waitForVisible(this.landingPage.languageSelector, 20);
+    //     I.click(this.landingPage.languageSelector);
+    //     I.waitForVisible(this.landingPage.languageOption(language), 20);
+    //     I.click(this.landingPage.languageOption(language));
+    //     CmsContext.language = language;
+    //     await this.getCMSContentThroughLanguage('datamappings', CmsContext.language);
+    // },
 
     fillPassword(pass) {
         I.waitForVisible(this.fields.password, 30);
@@ -51,7 +50,7 @@ module.exports = {
     },
 
     async Login(user, pass) {
-        await I.isPresent(this.fields.email, 10).then(async (isButtonRendered) => {
+        await I.isPresent(this.fields.email).then(async (isButtonRendered) => {
             if (isButtonRendered === true) {
                 if (envURL.env === 'dev' || envURL.env === 'test') {
                     this.login(user, pass);
@@ -75,13 +74,13 @@ module.exports = {
 
     async acceptCookiesOnLandingPage() {
         if (envURL.env === 'int-g1ds' || envURL.env === 'nft-g1ds' || envURL.env === 'stg-g1ds') {
-            await I.isPresent(this.landingPage.agreeButton, 20).then((status) => {
+            await I.isPresent(this.landingPage.agreeButton, 5).then((status) => {
                 if (status) {
                     I.waitForVisible(this.landingPage.agreeButton, 20);
                     I.click(this.landingPage.agreeButton);
                 }
             });
-            await I.isPresent(this.landingPage.acceptButton, 3).then((status) => {
+            await I.isPresent(this.landingPage.acceptButton, 2).then((status) => {
                 if (status) {
                     I.waitForVisible(this.landingPage.acceptButton, 40);
                     I.waitForEnabled(this.landingPage.acceptButton, 40);
@@ -96,14 +95,14 @@ module.exports = {
         I.click(this.fields.nextButton);
         this.fillPassword(pass);
         I.click(this.fields.verifyButton);
-        I.wait(5);
+        I.wait(10);
     },
 
     login(user, pass) {
         this.fillEmail(user);
         this.fillPassword(pass);
         I.click(this.fields.submitButton);
-        I.wait(5);
+        I.wait(10);
     },
 
     async selectClientAndMarket(table) {

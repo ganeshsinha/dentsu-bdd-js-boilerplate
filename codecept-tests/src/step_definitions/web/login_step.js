@@ -1,17 +1,34 @@
-let I = actor();
-const {login} = inject();
-const loginPage = require('../../pages/loginPage_okta');
+const I = actor();
+const envURL = require('../../../config/envConfig');
+const loginPage = require('../../pages/loginPage');
 const genericMethod = require('../../../factories/genericFuctions');
+// const CryptoJS = require("crypto-js");
+// const oktaPass = process.env.OKTA_PASS;
+// const oktaKey = process.env.OKTA_KEY;
+let currentUrl;
+let table = '';
 
 When('User enter credentials', async () => {
-    let status = await I.isVisible("#okta-signin-username", 10);
-    if (status) {
-        await login("admin");
-    }
-    //for token //console.log(genericMethod.getOktaToken());
+    let user = (envURL.env === "dev" || envURL.env === "test") ? "global.admin1" : 'Diana.Deane@dan-demo.com';
+    let pass = (envURL.env === "dev" || envURL.env === "test") ? "" : "";
+    await loginPage.Login(user,pass);
 });
 
-Given(/^User am on login page$/, () => {
-    //I.amOnPage('/');
-    I.amOnPage('https://dentsuaegis-test.okta-emea.com');
+Given(/^User is on landing page$/, async () => {
+    currentUrl = (envURL.env === 'dev' || envURL.env === 'test')
+        ? '/mapping/data-files'
+    : "https://platform.wal.int.az.eu.mediaecosystem.io/";
+
+    I.amOnPage(currentUrl);
+});
+
+Then(/^User select client, market and application$/, async (input) => {
+    if (envURL.env === 'int-g1ds' || envURL.env === 'nft-g1ds' || envURL.env === 'stg-g1ds') {
+        table = table || genericMethod.transformTable(input);
+        await loginPage.selectClientAndMarket(table[0]);
+    }
+});
+
+Then(/^verify user is on landing page$/, function () {
+    loginPage.verifyUserOnLandingPage()
 });

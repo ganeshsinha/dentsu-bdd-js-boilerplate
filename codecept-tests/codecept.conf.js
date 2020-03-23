@@ -1,6 +1,6 @@
 require('import-export');
-const {include, gherkin} = require('./config/include');
-const {WebDriver, REST, GraphQL} = require('./config/helpers');
+const {include, gherkin} = require('./config/bddConfig');
+const {WebDriver, REST, GraphQL} = require('./config/webHelpersConfig');
 const browser = ["chrome", "chrome", "chrome", "chrome"];
 
 exports.config = {

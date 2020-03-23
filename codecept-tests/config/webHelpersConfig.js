@@ -1,14 +1,14 @@
 const envURL = require('./envConfig');
-const oktaKey = process.env.OKTA_KEY;
+// const oktaKey = process.env.OKTA_KEY;
 let { HOST_URL } = envURL[envURL.env].web;
 let { REST_API_ENDPOINT } = envURL[envURL.env].api;
 let { serverURL } = envURL[envURL.env].server;
 let CryptoJS = require("crypto-js");
 const path = require('path');
 const downloadDir = path.join(__dirname, '../output/Download');
-HOST_URL=CryptoJS.AES.decrypt(HOST_URL, oktaKey).toString(CryptoJS.enc.Utf8);
-REST_API_ENDPOINT=CryptoJS.AES.decrypt(REST_API_ENDPOINT, oktaKey).toString(CryptoJS.enc.Utf8);
-serverURL=CryptoJS.AES.decrypt(serverURL, oktaKey).toString(CryptoJS.enc.Utf8);
+// HOST_URL=CryptoJS.AES.decrypt(HOST_URL, oktaKey).toString(CryptoJS.enc.Utf8);
+// REST_API_ENDPOINT=CryptoJS.AES.decrypt(REST_API_ENDPOINT, oktaKey).toString(CryptoJS.enc.Utf8);
+// serverURL=CryptoJS.AES.decrypt(serverURL, oktaKey).toString(CryptoJS.enc.Utf8);
 const WebDriver = {
     url: HOST_URL,
     restart: false,
