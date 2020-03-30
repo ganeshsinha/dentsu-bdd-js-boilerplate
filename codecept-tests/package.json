@@ -1,0 +1,36 @@
+{
+  "name": "codecept-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:sanity": "codeceptjs run --grep \"@sanity\" --plugins allure --config=./codecept-tests/codecept.conf.js",
+    "test:multiple": "codeceptjs run-multiple --all --config=./codecept-tests/codecept.conf.js",
+    "test:smoke": "codeceptjs run --grep \"@smoke\" --plugins allure --config=./codecept-tests/codecept.conf.js",
+    "test:e2e": "codeceptjs run --plugins allure --config=./codecept-tests/codecept.conf.js",
+    "test:report": "allure serve ./codecept-tests/output",
+    "test:report-gen": "allure generate ./codecept-tests/output"
+  },
+  "devDependencies": {
+    "@wdio/selenium-standalone-service": "^5.12.1",
+    "allure-commandline": "^2.9.0",
+    "codeceptjs": "^2.3.0",
+    "crypto-js": "^4.0.0",
+    "cucumber": "^6.0.4",
+    "import-export": "^1.0.1",
+    "pg": "^7.18.2",
+    "webdriverio": "^5.12.5"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.9.0",
+    "chai-json-schema": "^1.5.1",
+    "exceljs": "^3.1.0",
+    "moment": "latest",
+    "chai": "latest",
+    "randomstring": "latest",
+    "faker": "latest",
+    "mongoose": "^5.7.3"
+  },
+  "author": "Shubham Gupta",
+  "license": "ISC"
+}
