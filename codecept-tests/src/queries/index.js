@@ -1,4 +1,4 @@
-const dataFile = require('./dataFileQueries');
+const dataFile = require('./dataFile_Queries');
 module.exports = {
     dataFile,
 };

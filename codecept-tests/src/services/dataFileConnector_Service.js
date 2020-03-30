@@ -1,7 +1,7 @@
 const I = actor();
 const apiURL = require('../../factories/ApiHelper');
 const genericMethod = require('../../factories/genericFuctions');
-const loginPage = require('../pages/loginPage');
+const loginPage = require('../pages/login_Page');
 
 const userService = {
 
