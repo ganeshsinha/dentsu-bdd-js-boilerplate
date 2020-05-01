@@ -26,7 +26,6 @@ class JobFactory {
   }
 }
 
-
 // TODO: notification via teams on error - remove if not using teams
 // devops.Events.enableNotifyOnError();
 
