@@ -4,10 +4,10 @@ const Window = require('window');
 const window = new Window();
 
 class MyHelper extends Helper {
+
     async isElementVisible(textOrLocator, timeout) {
         const helper = this.helpers[('Puppeteer' in this.helpers) ? 'Puppeteer' : 'WebDriver'];
         try {
-            // await helper.waitUntil(() => window.requests == 0, 5);
             await helper.waitUntil(() => window.document.readyState === "complete", 20);
             await helper.waitForVisible(textOrLocator,timeout||5);
             return true;
@@ -19,7 +19,6 @@ class MyHelper extends Helper {
     async isEnable(textOrLocator, timeout) {
         const helper = this.helpers[('Puppeteer' in this.helpers) ? 'Puppeteer' : 'WebDriver'];
         try {
-            // await helper.waitUntil(() => window.requests == 0, 5);
             await helper.waitUntil(() => window.document.readyState === "complete", 20);
             await helper.waitForEnabled(textOrLocator, timeout||5);
             return true;
@@ -32,7 +31,6 @@ class MyHelper extends Helper {
     async isPresent(textOrLocator, timeout) {
         const helper = this.helpers[('Puppeteer' in this.helpers) ? 'Puppeteer' : 'WebDriver'];
         try {
-            // await helper.waitUntil(() => window.requests == 0, 5);
             await helper.waitUntil(() => window.document.readyState === "complete", 20);
             await helper.waitForElement(textOrLocator,timeout||5);
             return true;
@@ -44,7 +42,6 @@ class MyHelper extends Helper {
     async isTextPresent(text, timeout) {
         const helper = this.helpers[('Puppeteer' in this.helpers) ? 'Puppeteer' : 'WebDriver'];
         try {
-            // await helper.waitUntil(() => window.requests == 0, 5);
             await helper.waitUntil(() => window.document.readyState === "complete", 20);
             await helper.waitForText(text,timeout||5);
             return true;

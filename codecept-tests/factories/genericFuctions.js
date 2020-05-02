@@ -1,17 +1,13 @@
-const path = require("path");
-import fs from 'fs';
 const I = actor();
-const tokenID = path.join(__dirname, `../output/admin_session.json`);
 
 module.exports = {
 
     transformTable(table) {
-        let rows = table.rows;
-        let headerRow = rows.shift();
-        let headers = headerRow.cells.map(item => item.value);
-
-        return rows.map(row => {
-            let obj = {};
+        const {rows} = table;
+        const headerRow = rows.shift();
+        const headers = headerRow.cells.map((item) => item.value);
+        return rows.map((row) => {
+            const obj = {};
             row.cells.forEach((item, index) => {
                 obj[headers[index]] = item.value;
             });
@@ -19,23 +15,16 @@ module.exports = {
         });
     },
 
-    removeDirectory(dir) {
-        let list = fs.readdirSync(dir);
-        for (let i = 0; i < list.length; i++) {
-            let filename = path.join(dir, list[i]);
-            let stat = fs.statSync(filename);
-            if (filename === "." || filename === "..") {
-            } else if (stat.isDirectory()) {
-                fs.rmdir(filename);
-            } else {
-                fs.unlinkSync(filename);
-            }
-        }
-        fs.rmdirSync(dir);
+    transFormList(table){
+        const {cells} = table.rows[0];
+        cells.forEach((item, index) => {
+            cells[index]=item.value;
+        });
+        return cells;
     },
 
     replaceAll(str, term, replacement) {
-        return str.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g'), replacement);
+        return str.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), replacement);
     },
 
     waitAndClick(locator, sec) {
@@ -57,8 +46,8 @@ module.exports = {
     clearFields(locator, sec) {
         I.waitForVisible(locator, sec);
         I.click(locator);
-        I.pressKey(["\uE009", "a", "\uE009"]);
-        I.pressKey("Backspace");
+        I.pressKey(['\uE009', 'a', '\uE009']);
+        I.pressKey('Backspace');
     },
 
     waitAndAssertText(text, locator, sec) {
@@ -78,29 +67,25 @@ module.exports = {
 
     async getOktaToken() {
         let token = await I.executeScript(
-            (storage) => localStorage.getItem(storage), 'okta-token-storage'
-        );
-        fs.writeFileSync(tokenID, JSON.stringify(token));
-        const sessionFile = path.join(__dirname, `../output/admin_session.json`);
-        const data = fs.readFileSync(sessionFile, 'utf8');
-        if (!data) { return; }
-        const cred = JSON.parse(JSON.parse(data));
-        return "Bearer " + cred.idToken.idToken;
+            (storage) => localStorage.getItem(storage), 'okta-token-storage');
+        token = JSON.stringify(token);
+        token = JSON.parse(JSON.parse(token));
+        return `Bearer ${token.accessToken.accessToken}`;
     },
 
-    async getCMSContentFromGraphQL(collectionName, language) {
-        let token = await this.getOktaToken();
-        let cmsContent = await I.sendQuery(
+    async getCMSContentFromGraphQL(collectionName, lang) {
+        const token = await this.getOktaToken();
+        return await I.sendQuery(
             `query{
-                getContent(
-                    input:{
-                        collectionName :"${collectionName}",
-                        language: "${language}" 
-                    }
-                )
-                 { result }
-            }`, {}, {}, {"Authorization": token} );
-        return cmsContent.data.data.getContent.result;
+                getContent(input:{ collectionName :"${collectionName}", language: "${lang}"})
+                 { result 
+                 __typename
+                 }
+            }`, {}, {}, {
+                authorization: token,
+                serviceconfig: '{"clientCode":"A_GNMOT","marketCode":"US?","subTenantId":"y9dc5","tenantId":"ff2e3"}',
+            }
+        );
     },
 
 };

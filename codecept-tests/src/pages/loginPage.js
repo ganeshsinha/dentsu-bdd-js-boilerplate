@@ -1,8 +1,8 @@
 // / <reference path="..\steps.d.ts" />
 const I = actor();
-const envURL = require('../../config/envConfig');
+const envURL = require('../../config/EnvConfig');
 let {market, client} = envURL[envURL.env];
-const genericMethod = require('../../factories/genericFuctions');
+const genericMethod = require('../../factories/GenericFuctions');
 const CmsContext = require('../../factories/CMSContent');
 const url = require('url');
 const querystring = require('querystring');
@@ -25,9 +25,9 @@ module.exports = {
         marketAndClientSelector: (client, selector) => `//p[text()='${client}']/..//div[contains(text(),'${selector}')]/..//input`,
         agreeButton: "//span[text()='I agree']/..",
         acceptButton: "//span[text()='Accept cookies']/..",
-        launchButton: (client) => `//p[text()='${client}']/..//span[text()='Launch app']/..`,
+        launchButton: clientName => `//p[text()='${clientName}']/..//span[text()='Launch app']/..`,
         languageSelector: "//select[@name='language']",
-        languageOption: (language) => `//option[text()='${language}']`,
+        languageOption: language => `//option[text()='${language}']`,
     },
 
     fillEmail(user) {
@@ -35,14 +35,14 @@ module.exports = {
         I.fillField(this.fields.email, user);
     },
 
-    // async changeLanguage(language) {
-    //     I.waitForVisible(this.landingPage.languageSelector, 20);
-    //     I.click(this.landingPage.languageSelector);
-    //     I.waitForVisible(this.landingPage.languageOption(language), 20);
-    //     I.click(this.landingPage.languageOption(language));
-    //     CmsContext.language = language;
-    //     await this.getCMSContentThroughLanguage('datamappings', CmsContext.language);
-    // },
+    async changeLanguage(language) {
+        I.waitForVisible(this.landingPage.languageSelector, 20);
+        I.click(this.landingPage.languageSelector);
+        I.waitForVisible(this.landingPage.languageOption(language), 20);
+        I.click(this.landingPage.languageOption(language));
+        CmsContext.language = language;
+        await this.getCMSContentThroughLanguage('datamappings', CmsContext.language);
+    },
 
     fillPassword(pass) {
         I.waitForVisible(this.fields.password, 30);
@@ -50,14 +50,16 @@ module.exports = {
     },
 
     async Login(user, pass) {
-        await I.isPresent(this.fields.email).then(async (isButtonRendered) => {
+        await I.isPresent(this.fields.email,20).then(async (isButtonRendered) => {
             if (isButtonRendered === true) {
                 if (envURL.env === 'dev' || envURL.env === 'test') {
                     this.login(user, pass);
+                    I.waitForVisible("//div[text()='Data Mapping']",20)
                 } else {
                     this.loginInOkta(user, pass);
+                    this.verifyUserOnLandingPage();
                 }
-                // await this.getCMSContentThroughLanguage("datamappings", CmsContext.language)
+                  await this.getCMSContentThroughLanguage("datamappings", "en-US")
             }
         });
         await this.acceptCookiesOnLandingPage();
@@ -74,13 +76,13 @@ module.exports = {
 
     async acceptCookiesOnLandingPage() {
         if (envURL.env === 'int-g1ds' || envURL.env === 'nft-g1ds' || envURL.env === 'stg-g1ds') {
-            await I.isPresent(this.landingPage.agreeButton, 5).then((status) => {
+            await I.isPresent(this.landingPage.agreeButton, 2).then((status) => {
                 if (status) {
                     I.waitForVisible(this.landingPage.agreeButton, 20);
                     I.click(this.landingPage.agreeButton);
                 }
             });
-            await I.isPresent(this.landingPage.acceptButton, 2).then((status) => {
+            await I.isPresent(this.landingPage.acceptButton, 1).then((status) => {
                 if (status) {
                     I.waitForVisible(this.landingPage.acceptButton, 40);
                     I.waitForEnabled(this.landingPage.acceptButton, 40);
@@ -92,17 +94,16 @@ module.exports = {
 
     loginInOkta(user, pass) {
         this.fillEmail(user);
+        I.waitForEnabled(this.fields.nextButton,20);
         I.click(this.fields.nextButton);
         this.fillPassword(pass);
         I.click(this.fields.verifyButton);
-        I.wait(10);
     },
 
     login(user, pass) {
         this.fillEmail(user);
         this.fillPassword(pass);
         I.click(this.fields.submitButton);
-        I.wait(10);
     },
 
     async selectClientAndMarket(table) {
@@ -135,9 +136,9 @@ module.exports = {
     },
 
     selectApplication(table) {
-        I.waitForElement(this.landingPage.marketAndClientSelector(table["Client"]||client, 'Select an app'), 20);
-        I.scrollTo(this.landingPage.marketAndClientSelector(table["Client"]||client, 'Select an app'), 20,);
-        I.fillField(this.landingPage.marketAndClientSelector(table["Client"]||client,
+        I.waitForElement(this.landingPage.marketAndClientSelector(table["Client"] || client, 'Select an app'), 20);
+        I.scrollTo(this.landingPage.marketAndClientSelector(table["Client"] || client, 'Select an app'), 20,);
+        I.fillField(this.landingPage.marketAndClientSelector(table["Client"] || client,
             'Select an app'), table["application"]);
         I.pressKey('Enter');
     },
