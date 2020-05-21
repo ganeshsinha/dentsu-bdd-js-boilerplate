@@ -1,5 +1,5 @@
 const I = actor();
-const genericMethod = require('../../factories/genericFuctions');
+const genericMethod = require('../../factories/GenericFuctions');
 
 module.exports = {
 

@@ -1,7 +1,7 @@
 const I = actor();
-const envURL = require('../../../config/envConfig');
+const envURL = require('../../../config/EnvConfig');
 const loginPage = require('../../pages/login_Page');
-const genericMethod = require('../../../factories/genericFuctions');
+const genericMethod = require('../../../factories/GenericFuctions');
 // const CryptoJS = require("crypto-js");
 // const oktaPass = process.env.OKTA_PASS;
 // const oktaKey = process.env.OKTA_KEY;

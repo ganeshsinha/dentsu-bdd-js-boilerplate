@@ -19,21 +19,6 @@ module.exports = {
         });
     },
 
-    removeDirectory(dir) {
-        let list = fs.readdirSync(dir);
-        for (let i = 0; i < list.length; i++) {
-            let filename = path.join(dir, list[i]);
-            let stat = fs.statSync(filename);
-            if (filename === "." || filename === "..") {
-            } else if (stat.isDirectory()) {
-                fs.rmdir(filename);
-            } else {
-                fs.unlinkSync(filename);
-            }
-        }
-        fs.rmdirSync(dir);
-    },
-
     replaceAll(str, term, replacement) {
         return str.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g'), replacement);
     },

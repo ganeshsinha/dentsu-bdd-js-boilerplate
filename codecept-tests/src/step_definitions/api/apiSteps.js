@@ -3,7 +3,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const {userService} = require('../../services');
 let {newUser,createUserRes} = require('../../model/api');
-const genericMethod = require('../../../factories/genericFuctions');
+const genericMethod = require('../../../factories/GenericFuctions');
 
 Given(/^User try to get the API response$/, async () => {
     responseFromAPI = await userService.getUserNameAPI();

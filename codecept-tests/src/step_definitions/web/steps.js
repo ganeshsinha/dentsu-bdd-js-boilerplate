@@ -1,5 +1,5 @@
 const loginPage = require('../../pages/Login');
-const genericMethod = require('../../../factories/genericFuctions');
+const genericMethod = require('../../../factories/GenericFuctions');
 
 //Use step file just to call page function do not create any logic in that.
 Given(/^User is on landing page$/, () => {

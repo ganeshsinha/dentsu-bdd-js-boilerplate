@@ -1,7 +1,8 @@
 require('import-export');
-const {include, gherkin} = require('./config/bddConfig');
-const {WebDriver, REST, GraphQL} = require('./config/webHelpersConfig');
+const {include, gherkin} = require('./config/BddConfig');
+const {WebDriver, REST, GraphQL} = require('./config/WebHelpersConfig');
 const browser = ["chrome", "chrome", "chrome", "chrome"];
+// const hooks = require('./config/Hooks');
 
 exports.config = {
     output: './output',
@@ -17,6 +18,11 @@ exports.config = {
         WebDriver, REST, GraphQL,
         customHelper: {require: './factories/MyHelper.js'}
     },
+
+    // bootstrapAll: hooks.setBootstrap,
+    // teardownAll: hooks.setTeardown,
+    // bootstrap: hooks.setBootstrap,
+    // teardown: hooks.setTeardown,
 
     include,
     gherkin,

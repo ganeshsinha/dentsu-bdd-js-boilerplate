@@ -1,8 +1,8 @@
 // / <reference path="..\steps.d.ts" />
 const I = actor();
-const envURL = require('../../config/envConfig');
+const envURL = require('../../config/EnvConfig');
 let {market, client} = envURL[envURL.env];
-const genericMethod = require('../../factories/genericFuctions');
+const genericMethod = require('../../factories/GenericFuctions');
 const CmsContext = require('../../factories/CMSContent');
 const url = require('url');
 const querystring = require('querystring');

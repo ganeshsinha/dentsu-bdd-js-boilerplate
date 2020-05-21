@@ -2,34 +2,42 @@
   "name": "codecept-tests",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "codecept.conf.js",
   "scripts": {
-    "test:sanity": "codeceptjs run --grep \"@sanity\" --plugins allure --config=./codecept-tests/codecept.conf.js",
-    "test:multiple": "codeceptjs run-multiple --all --config=./codecept-tests/codecept.conf.js",
-    "test:smoke": "codeceptjs run --grep \"@smoke\" --plugins allure --config=./codecept-tests/codecept.conf.js",
-    "test:e2e": "codeceptjs run --plugins allure --config=./codecept-tests/codecept.conf.js",
-    "test:report": "allure serve ./codecept-tests/output",
-    "test:report-gen": "allure generate ./codecept-tests/output"
+    "start:selenium-standalone": "./node_modules/.bin/selenium-standalone install",
+    "test:sanity": "codeceptjs run --grep \"@sanity\" --plugins allure --config=./codecept.conf.js",
+    "test:e2e": "codeceptjs run --plugins allure --config=./codecept.conf.js",
+    "test:multiple": "codeceptjs run-multiple --all --config=./codecept.conf.js",
+    "test:smoke": "codeceptjs run --grep \"@smoke\" --plugins allure --config=./codecept.conf.js",
+    "test:report": "allure serve ./output",
+    "test:report-gen": "allure generate ./output"
   },
   "devDependencies": {
     "@wdio/selenium-standalone-service": "^5.12.1",
     "allure-commandline": "^2.9.0",
     "codeceptjs": "^2.3.0",
-    "crypto-js": "^4.0.0",
-    "cucumber": "^6.0.4",
+    "cucumber": "^6.0.5",
     "import-export": "^1.0.1",
-    "pg": "^7.18.2",
-    "webdriverio": "^5.12.5"
+    "webdriverio": "^5.12.5",
+    "selenium-standalone": "latest"
   },
   "dependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.4",
+    "@babel/plugin-transform-spread": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
     "allure-commandline": "^2.9.0",
-    "chai-json-schema": "^1.5.1",
+    "babel-loader": "8.0.6",
+    "chai": "latest",
+    "crypto-js": "^3.1.9-1",
     "exceljs": "^3.1.0",
     "moment": "latest",
-    "chai": "latest",
+    "mongoose": "^5.7.3",
+    "pg": "^7.18.2",
     "randomstring": "latest",
-    "faker": "latest",
-    "mongoose": "^5.7.3"
+    "window": "^4.2.6"
   },
   "author": "Shubham Gupta",
   "license": "ISC"
