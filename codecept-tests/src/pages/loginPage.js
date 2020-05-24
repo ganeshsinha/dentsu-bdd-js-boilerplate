@@ -189,7 +189,7 @@ module.exports = {
         "clientCode": queryString.clientCode
       };
       return JSON.stringify((queryString.marketCode)
-        ? {serviceConfig, "marketCode": queryString.marketCode}
+        ? {...serviceConfig, "marketCode": queryString.marketCode}
         : serviceConfig);
     }
   },
