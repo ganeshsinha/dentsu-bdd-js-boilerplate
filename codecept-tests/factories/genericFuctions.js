@@ -15,6 +15,16 @@ module.exports = {
         });
     },
 
+    async deleteApi(url,headers,data) {
+        const axios = require('axios');
+        return await axios.delete(url, {
+          headers: headers,
+          data: data
+        }).then((response)=>{
+         return response.data
+        });
+      },
+
     transFormList(table){
         const {cells} = table.rows[0];
         cells.forEach((item, index) => {
