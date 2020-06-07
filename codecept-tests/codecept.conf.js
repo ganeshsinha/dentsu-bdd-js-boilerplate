@@ -1,7 +1,7 @@
 const {include, gherkin} = require('./config/BddConfig');
-const {WebDriver, GraphQL} = require('./config/WebHelpersConfig');
-const browser = ['chrome', 'chrome', 'chrome', 'chrome'];
-const hooks = require('./config/Hooks');
+const {WebDriver, REST, GraphQL} = require('./config/WebHelpersConfig');
+const browser = ["chrome", "chrome", "chrome", "chrome"];
+// const hooks = require('./config/Hooks');
 
 exports.config = {
     output: './output',
@@ -14,25 +14,21 @@ exports.config = {
     },
 
     helpers: {
-        WebDriver,
-        GraphQL,
-        customHelper: {require: './factories/MyHelper.js'},
+        WebDriver, REST, GraphQL,
+        customHelper: {require: './factories/MyHelper.js'}
     },
 
-    //hooks added for parllel excution for more info go through with Readme
-    bootstrapAll: hooks.setBootstrap,
-    teardownAll: hooks.setTeardown,
-    bootstrap: hooks.setBootstrap,
-    teardown: hooks.setTeardown,
+    // bootstrapAll: hooks.setBootstrap,
+    // teardownAll: hooks.setTeardown,
+    // bootstrap: hooks.setBootstrap,
+    // teardown: hooks.setTeardown,
 
     include,
     gherkin,
     plugins: {
         screenshotOnFail: {enabled: true},
-        // wdio: { enabled: true, services: ['selenium-standalone'] },
-        allure: {
-            enabled: true,
-        },
+        wdio: {enabled: true, services: ['selenium-standalone']},
+        allure: {enabled: true},
     },
-    name: 'codecept-test',
+    name: 'Codeceptjs-Skeleton'
 };

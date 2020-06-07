@@ -27,9 +27,9 @@ module.exports = {
     let newDate = dateObj.getDate() + numDays;
     if (dateObj.getDate() > newDate) {
       dateObj.setDate(newDate);
-      dateObj.setMonth(dateObj.getMonth() + 1);
+      dateObj.setatMonth(dateObj.getMonth() + 1);
     } else {
-      dateObj.setDate(newDate);
+      deObj.setDate(newDate);
     }
     return dateObj;
   },

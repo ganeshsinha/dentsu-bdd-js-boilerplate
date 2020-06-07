@@ -4,6 +4,7 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June',
 const genericFunction = require('./GenericFuctions');
 
 module.exports = {
+
     // from component library
     dateRangePicker(startDate, EndDate, locator) {
         const startDateYear = new Date(startDate).getFullYear();
@@ -47,36 +48,5 @@ module.exports = {
         genericFunction.waitAndClick(`//option[text()='${months[currentMonth]}']/..`, 20);
         genericFunction.waitAndClick(`//option[text()='${months[month]}']`, 20);
         genericFunction.waitAndClick(`(//div[text()='${datePick}'])[1]`, 20);
-    },
-
-    // from taxonomy app
-    datePicker(date) {
-        if (date !== '') {
-            const year = new Date(date).getFullYear();
-            const currentYear = new Date().getFullYear();
-            const month = new Date(date).getMonth();
-            const currentMonth = new Date().getMonth();
-            const datePick = new Date(date).getDate();
-            genericFunction.waitAndClick("//div/label/../div[1]/input[@placeholder='MM/DD/YYYY']", 20);
-            genericFunction.waitAndClick(`//h6[text()='${currentYear}']`, 5);
-            I.waitForVisible(`//div[text()='${currentYear}']`, 5);
-            I.click(`//div[text()='${year}']`);
-            const numberOfClick = currentMonth - month;
-            for (let i = 0; i < Math.abs(numberOfClick); i++) {
-                if (numberOfClick < 0) {
-                    genericFunction.waitAndClick(`//p[contains(text(),'${year}')]/../..//button[2]`, 20);
-                }
-                if (numberOfClick > 0) {
-                    genericFunction.waitAndClick(`//p[contains(text(),'${year}')]/../..//button[1]`, 20);
-                }
-            }
-            genericFunction.waitAndClick(`//button[@tabindex='0']//span[text()='${datePick}']/..`, 20);
-            genericFunction.waitAndClick("//span[text()='OK']", 20);
-        }
-    },
-
-    resetDatePicker() {
-        genericFunction.waitAndClick("//input[@placeholder='MM/DD/YYYY']", 20);
-        genericFunction.waitAndClick("//span[text()='Clear']", 20);
     },
 };
