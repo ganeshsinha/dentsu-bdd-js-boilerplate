@@ -10,25 +10,28 @@
     "test:multiple": "codeceptjs run-multiple --all --config=./codecept.conf.js",
     "test:smoke": "codeceptjs run --grep \"@smoke\" --plugins allure --config=./codecept.conf.js",
     "test:report": "allure serve ./output",
-    "test:report-gen": "allure generate ./output"
+    "test:report-gen": "allure generate ./output",
+    "test:demo": "codeceptjs run --grep \"@demo\""
   },
   "devDependencies": {
-    "@wdio/selenium-standalone-service": "^5.12.1",
+    "@wdio/selenium-standalone-service": "^5.16.10",
     "allure-commandline": "^2.9.0",
-    "codeceptjs": "^2.3.0",
+    "axios": "^0.19.2",
+    "codeceptjs": "^2.6.11",
     "cucumber": "^6.0.5",
     "import-export": "^1.0.1",
-    "axios": "^0.19.2",
+    "puppeteer": "1.18.1",
     "webdriverio": "^5.12.5"
   },
   "dependencies": {
+    "@wdio/cli": "^6.12.1",
     "allure-commandline": "^2.9.0",
-    "exceljs": "^3.1.0",
-    "moment": "latest",
     "chai": "latest",
-    "randomstring": "latest",
+    "exceljs": "^3.1.0",
     "faker": "latest",
+    "moment": "latest",
     "mongoose": "^5.7.3",
+    "randomstring": "latest",
     "window": "^4.2.6"
   },
   "author": "Shubham Gupta",
